@@ -10,36 +10,36 @@
     tools:context=".JokeListActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv"
         android:layout_width="90dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         tools:srcCompat="@drawable/fireworks" />
 
     <TextView
-        android:id="@+id/categoryTextView"
+        android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
         android:textColor="@android:color/holo_purple"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="Category" />
 
     <TextView
-        android:id="@+id/questionTextView"
+        android:id="@+id/tvQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
-        android:text="Question"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        tools:text="Question" />
 
     <TextView
-        android:id="@+id/answerTextView"
+        android:id="@+id/tvAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingTop="4dp"
-        android:text="Answer"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/darker_gray"
+        tools:text="Answer" />
 
 </LinearLayout>
