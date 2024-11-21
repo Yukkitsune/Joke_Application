@@ -7,5 +7,4 @@ data class Joke(
     val question: String,
     val answer: String,
     @DrawableRes val image: Int?
-
 )

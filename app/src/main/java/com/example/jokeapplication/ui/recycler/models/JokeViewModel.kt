@@ -1,21 +1,22 @@
-package com.example.jokeapplication
+package com.example.jokeapplication.ui.recycler.models
 
-import JokeAdapter
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.jokeapplication.R
 import com.example.jokeapplication.data.Joke
-import com.example.jokeapplication.databinding.ActivityJokeListBinding
 
-class JokeListActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityJokeListBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityJokeListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+class JokeViewModel : ViewModel() {
 
-        val jokes = listOf(
+    private val _jokes = MutableLiveData<List<Joke>>()
+    val jokes: LiveData<List<Joke>> get() = _jokes
+
+    init {
+        loadData()
+    }
+
+    private fun loadData() {
+        _jokes.value = listOf(
             Joke(
                 category = "Holiday",
                 question = "What does Santa suffer from if he gets stuck in a chimney?",
@@ -59,9 +60,5 @@ class JokeListActivity : AppCompatActivity() {
                 image = R.drawable.space
             )
         )
-
-        val recyclerView: RecyclerView = findViewById(R.id.main)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = JokeAdapter(jokes)
     }
 }
