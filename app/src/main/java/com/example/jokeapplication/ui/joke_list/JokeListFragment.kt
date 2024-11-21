@@ -33,9 +33,7 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
             findNavController().navigate(action)
         }
 
-
         val recyclerView: RecyclerView = binding.main
-        //val adapter = JokeAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
