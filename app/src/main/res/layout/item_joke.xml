@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context=".JokeListActivity">
+    tools:context=".ui.joke_list.JokeListFragment">
 
     <ImageView
         android:id="@+id/iv"
