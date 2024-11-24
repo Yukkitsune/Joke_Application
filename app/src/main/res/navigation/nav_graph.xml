@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_jokeListFragment_to_jokeDetailsFragment"
             app:destination="@id/jokeDetailsFragment" />
+        <action
+            android:id="@+id/action_jokeListFragment_to_jokeAddFragment"
+            app:destination="@id/jokeAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/jokeDetailsFragment"
@@ -24,6 +27,11 @@
         <argument
             android:name="answer"
             app:argType="string" />
-
     </fragment>
+    <fragment
+        android:id="@+id/jokeAddFragment"
+        android:name="com.example.jokeapplication.ui.add_joke.JokeAddFragment"
+        android:label="Add New Joke"
+
+        />
 </navigation>

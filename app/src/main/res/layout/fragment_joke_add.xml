@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.add_joke.JokeAddFragment">
+
+
+    <ImageView
+        android:id="@+id/ivQuestionSign"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:src="@drawable/question_sign" />
+
+    <EditText
+        android:id="@+id/etAddCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_category"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etAddQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_question"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etAddAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_answer"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btnSubmitJoke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_joke" />
+</LinearLayout>

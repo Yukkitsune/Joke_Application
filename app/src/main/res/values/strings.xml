@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Joke Application</string>
+    <string name="add_a_joke_btn">Add a joke</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_question">Question</string>
+    <string name="hint_category">Category</string>
+    <string name="hint_answer">Answer</string>
+    <string name="submit_joke">Submit Joke</string>
+    <string name="empty_jokes">Jokes vanished away! Please, add the new one.</string>
 </resources>
