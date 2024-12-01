@@ -4,7 +4,9 @@ plugins {
     id("androidx.navigation.safeargs")
 
 }
-
+apply {
+    from("../app/ktlint.gradle")
+}
 android {
     namespace = "com.example.jokeapplication"
     compileSdk = 34
@@ -26,6 +28,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     compileOptions {
@@ -34,16 +37,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+
     }
     buildFeatures {
         viewBinding = true
+
     }
+
 
 }
 
 dependencies {
 
-    val nav_version = "2.5.0"
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -51,8 +56,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation(libs.androidx.navigation.fragment.ktx.v250)
+    implementation(libs.androidx.navigation.ui.ktx.v250)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

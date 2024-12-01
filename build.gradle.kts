@@ -2,13 +2,24 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    id("io.gitlab.arturbosch.detekt") version("1.23.7")
+    java
+}
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 buildscript {
     repositories {
         google()
+        mavenCentral()
+
     }
     dependencies {
-        val nav_version = "2.8.2"
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+
     }
+
+
 }
