@@ -7,4 +7,8 @@
     <string name="hint_answer">Answer</string>
     <string name="submit_joke">Submit Joke</string>
     <string name="empty_jokes">Jokes vanished away! Please, add the new one.</string>
+    <string name="joke_image">Joke Image</string>
+    <string name="add_joke_question_sign">Add joke Question Sign</string>
+    <string name="no_jokes_in_list">No jokes in list</string>
+    <string name="joke_item_image">Joke item image</string>
 </resources>

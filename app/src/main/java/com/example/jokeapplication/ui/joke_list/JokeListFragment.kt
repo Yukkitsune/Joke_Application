@@ -2,7 +2,6 @@ package com.example.jokeapplication.ui.joke_list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,13 +21,18 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
     private val binding: FragmentJokeListBinding by viewBinding(FragmentJokeListBinding::bind)
     private val jokeViewModel: JokeViewModel by activityViewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = JokeAdapter { joke ->
-            val action = JokeListFragmentDirections.actionJokeListFragmentToJokeDetailsFragment(
-                    joke.category, joke.question, joke.answer
+            joke.image?.let { image ->
+                val action = JokeListFragmentDirections.actionJokeListFragmentToJokeDetailsFragment(
+                    joke.category, joke.question, joke.answer, joke.source, image
                 )
-            findNavController().navigate(action)
+                findNavController().navigate(action)
+            } ?: run {
+                println("Image is null")
+            }
         }
 
         val recyclerView: RecyclerView = binding.main
@@ -36,11 +40,10 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
         recyclerView.adapter = adapter
 
         jokeViewModel.progressLiveData.observe(viewLifecycleOwner) { isLoading ->
-            binding.pbLoadingJokes.visibility = if (isLoading) View.VISIBLE else View.GONE
             if (isLoading) {
-                binding.tvEmptyJokes.visibility = View.GONE
-                binding.ivEmptyJokes.visibility = View.GONE
-                recyclerView.visibility = View.GONE
+                binding.pbLoadingJokes.visibility = View.VISIBLE
+            } else {
+                binding.pbLoadingJokes.visibility = View.GONE
             }
         }
 
@@ -48,26 +51,37 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
             if (jokes.isNullOrEmpty()) {
                 binding.tvEmptyJokes.visibility = View.VISIBLE
                 binding.ivEmptyJokes.visibility = View.VISIBLE
-                binding.btnAddJoke.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE
             } else {
                 binding.tvEmptyJokes.visibility = View.GONE
                 binding.ivEmptyJokes.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
-                binding.btnAddJoke.visibility = View.VISIBLE
                 adapter.submitList(jokes)
 
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            jokeViewModel.fetchJokes()
-        }
-        val btnAddJoke: Button = binding.btnAddJoke
-        btnAddJoke.setOnClickListener {
+        binding.btnAddJoke.setOnClickListener {
             val action = JokeListFragmentDirections.actionJokeListFragmentToJokeAddFragment()
             findNavController().navigate(action)
         }
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
+                if (!jokeViewModel.progressLiveData.value!! &&
+                    (visibleItemCount + firstVisibleItemPosition >= totalItemCount) &&
+                    firstVisibleItemPosition >= 0
+                ) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        jokeViewModel.fetchJokes()
+                    }
+                }
+            }
+        })
     }
 
 }
