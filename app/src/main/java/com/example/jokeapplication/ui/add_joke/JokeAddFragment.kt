@@ -24,14 +24,25 @@ class JokeAddFragment : Fragment(R.layout.fragment_joke_add) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentJokeAddBinding.bind(view)
         binding.btnSubmitJoke.setOnClickListener {
-            createUserJoke()
+            val userJoke = createUserJoke()
+            if (userJoke.category.isEmpty() || userJoke.question.isEmpty() || userJoke.answer.isEmpty()) {
+                Toast.makeText(context, "Please, fill the fields.", Toast.LENGTH_SHORT).show()
+            } else {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    jokeViewModel.addUserJoke(userJoke)
+                    Toast.makeText(context, "Joke added successfully!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+
+            }
         }
     }
 
-    private fun createUserJoke() {
+    private fun createUserJoke(): Joke {
         val category = binding.etAddCategory.text.toString().trim()
         val question = binding.etAddQuestion.text.toString().trim()
         val answer = binding.etAddAnswer.text.toString().trim()
+        val source = "User"
         val image = when (category.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
                 Locale.ROOT
@@ -49,22 +60,13 @@ class JokeAddFragment : Fragment(R.layout.fragment_joke_add) {
             "Misc" -> R.drawable.misc
             else -> R.drawable.question_sign
         }
-        if (category.isEmpty() || question.isEmpty() || answer.isEmpty()) {
-            Toast.makeText(context, "Please, fill the fields.", Toast.LENGTH_SHORT).show()
-        } else {
-            val newJoke = Joke(
-                category = category,
-                question = question,
-                answer = answer,
-                source = "User",
-                image = image
-            )
-            viewLifecycleOwner.lifecycleScope.launch {
-                jokeViewModel.addJoke(newJoke)
-                Toast.makeText(context, "Joke added successfully!", Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()
-            }
 
-        }
+        return Joke(
+            category = category,
+            question = question,
+            answer = answer,
+            source = source,
+            image = image
+        )
     }
 }

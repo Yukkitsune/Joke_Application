@@ -8,6 +8,6 @@ interface JokeApi {
     suspend fun getRandomJoke(
         @Query("blacklistFlags") blackListFlags: String = "nsfw,religious,political,racist,sexist,explicit",
         @Query("type") type: String = "twopart",
-        @Query("amount") amount: Int = 10
+        @Query("amount") amount: Int = 5
     ): JokeResponse
 }

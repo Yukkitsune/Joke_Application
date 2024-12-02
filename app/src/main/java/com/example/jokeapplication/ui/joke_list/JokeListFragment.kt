@@ -2,6 +2,7 @@ package com.example.jokeapplication.ui.joke_list
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -56,8 +57,19 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
                 binding.tvEmptyJokes.visibility = View.GONE
                 binding.ivEmptyJokes.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
-                adapter.submitList(jokes)
+                val previousListSize = adapter.itemCount
+                val newListSize = jokes.size
+                adapter.submitList(jokes) {
+                    if (newListSize > previousListSize) {
+                        recyclerView.scrollToPosition(previousListSize)
+                    }
+                }
 
+            }
+        }
+        jokeViewModel.networkError.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnAddJoke.setOnClickListener {
@@ -77,7 +89,7 @@ class JokeListFragment : Fragment(R.layout.fragment_joke_list) {
                     firstVisibleItemPosition >= 0
                 ) {
                     viewLifecycleOwner.lifecycleScope.launch {
-                        jokeViewModel.fetchJokes()
+                        jokeViewModel.fetchMoreJokes()
                     }
                 }
             }
