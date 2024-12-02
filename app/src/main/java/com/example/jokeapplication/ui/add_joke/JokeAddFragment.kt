@@ -12,6 +12,7 @@ import com.example.jokeapplication.data.Joke
 import com.example.jokeapplication.databinding.FragmentJokeAddBinding
 import com.example.jokeapplication.ui.recycler.models.JokeViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 class JokeAddFragment : Fragment(R.layout.fragment_joke_add) {
@@ -23,32 +24,47 @@ class JokeAddFragment : Fragment(R.layout.fragment_joke_add) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentJokeAddBinding.bind(view)
         binding.btnSubmitJoke.setOnClickListener {
-            val category = binding.etAddCategory.text.toString().trim()
-            val question = binding.etAddQuestion.text.toString().trim()
-            val answer = binding.etAddAnswer.text.toString().trim()
-            val image = when (category) {
-                "Holiday" -> R.drawable.fireworks
-                "Study" -> R.drawable.study
-                "Animals" -> R.drawable.paw
-                "Food" -> R.drawable.restaurant
-                "Tech" -> R.drawable.tech
-                "Puns" -> R.drawable.puns
-                "Space" -> R.drawable.space
-                else -> R.drawable.question_sign
-            }
-            if (category.isEmpty() || question.isEmpty() || answer.isEmpty()) {
-                Toast.makeText(context, "Please, fill the fields.", Toast.LENGTH_SHORT).show()
-            } else {
-                val newJoke = Joke(
-                    category = category, question = question, answer = answer, image = image
-                )
-                viewLifecycleOwner.lifecycleScope.launch {
-                    jokeViewModel.addJoke(newJoke)
-                    Toast.makeText(context, "Joke added successfully!", Toast.LENGTH_SHORT).show()
-                    findNavController().navigateUp()
-                }
+            createUserJoke()
+        }
+    }
 
+    private fun createUserJoke() {
+        val category = binding.etAddCategory.text.toString().trim()
+        val question = binding.etAddQuestion.text.toString().trim()
+        val answer = binding.etAddAnswer.text.toString().trim()
+        val image = when (category.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        }) {
+            "Christmas" -> R.drawable.fireworks
+            "Animals" -> R.drawable.paw
+            "Food" -> R.drawable.restaurant
+            "Programming" -> R.drawable.tech
+            "Pun" -> R.drawable.puns
+            "Study" -> R.drawable.study
+            "Space" -> R.drawable.space
+            "Spooky" -> R.drawable.spooky
+            "Dark" -> R.drawable.dark
+            "Misc" -> R.drawable.misc
+            else -> R.drawable.question_sign
+        }
+        if (category.isEmpty() || question.isEmpty() || answer.isEmpty()) {
+            Toast.makeText(context, "Please, fill the fields.", Toast.LENGTH_SHORT).show()
+        } else {
+            val newJoke = Joke(
+                category = category,
+                question = question,
+                answer = answer,
+                source = "User",
+                image = image
+            )
+            viewLifecycleOwner.lifecycleScope.launch {
+                jokeViewModel.addJoke(newJoke)
+                Toast.makeText(context, "Joke added successfully!", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
             }
+
         }
     }
 }

@@ -27,11 +27,16 @@
         <argument
             android:name="answer"
             app:argType="string" />
+        <argument
+            android:name="source"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/jokeAddFragment"
         android:name="com.example.jokeapplication.ui.add_joke.JokeAddFragment"
-        android:label="Add New Joke"
-
-        />
+        android:label="Add New Joke" />
 </navigation>

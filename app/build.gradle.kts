@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("androidx.navigation.safeargs")
 
 }
@@ -63,6 +64,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.fragment.ktx)
     implementation(libs.viewbindingpropertydelegate.full)
-
-
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

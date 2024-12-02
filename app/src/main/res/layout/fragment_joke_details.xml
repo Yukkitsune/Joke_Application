@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,26 @@
     android:padding="16dp"
     tools:context=".ui.joke_details.JokeDetailsFragment">
 
+    <ImageView
+        android:id="@+id/ivJokeImage"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/joke_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/question_sign" />
+
     <TextView
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_purple"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:text="Category" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivJokeImage"
+        tools:text="Category"
+        tools:textColor="@android:color/holo_purple" />
 
     <TextView
         android:id="@+id/tvQuestion"
@@ -23,6 +36,8 @@
         android:paddingTop="16dp"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCategory"
         tools:text="Question" />
 
     <TextView
@@ -32,5 +47,8 @@
         android:paddingTop="8dp"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
         tools:text="Answer" />
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
