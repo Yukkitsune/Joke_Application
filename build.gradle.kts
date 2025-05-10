@@ -6,6 +6,7 @@ plugins {
     java
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.devtoolsKsp)
 }
 java {
     toolchain {
